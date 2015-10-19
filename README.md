@@ -2,13 +2,13 @@
 An interceptor which logs responses
 
 ## Installing
-```
+```bash
 npm install axios-response-logger --save
 ```
 
 ## Usage
 Simply require / import the library as part of your bootstrapping (before your requests).
-```
+```es6
 // es5
 require('axios-response-logger');
 
@@ -17,6 +17,6 @@ import 'axios-response-logger';
 ```
 
 ## Running Tests
-```
+```bash
 npm test
 ```
