@@ -1,0 +1,25 @@
+{
+  "name": "axios-response-logger",
+  "version": "1.0.0",
+  "description": "An interceptor which logs are responses",
+  "main": "index.js",
+  "scripts": {
+    "test": "node_modules/.bin/mocha tests/spec.js --ui bdd --colors"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/srph/axios-response-logger.git"
+  },
+  "author": "Kier Borromeo <seraphipod@gmail.com> (http://srph.github.io)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/srph/axios-response-logger/issues"
+  },
+  "homepage": "https://github.com/srph/axios-response-logger#readme",
+  "devDependencies": {
+    "axios": "^0.7.0",
+    "chai": "^3.3.0",
+    "mocha": "^2.3.3",
+    "sinon": "^1.17.1"
+  }
+}
