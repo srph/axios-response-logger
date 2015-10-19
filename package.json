@@ -1,6 +1,6 @@
 {
   "name": "axios-response-logger",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "An interceptor which logs are responses",
   "main": "index.js",
   "scripts": {
