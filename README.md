@@ -7,7 +7,7 @@ npm install axios-response-logger --save
 ```
 
 ## Usage
-Simply require / import the library.
+Simply require / import the library as part of your bootstrapping (before your requests).
 ```
 // es5
 require('axios-response-logger');
