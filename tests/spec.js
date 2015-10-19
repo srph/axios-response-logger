@@ -10,6 +10,7 @@ describe('logger', function() {
   beforeEach(function() {
     sandbox = sinon.sandbox.create();
     server = sandbox.useFakeServer();
+
     sandbox.spy(console, 'log');
   });
 
@@ -18,33 +19,25 @@ describe('logger', function() {
     sandbox.restore()
   });
 
-  // it('should log when on response.success', function(done) {
-  //   server.respondWith([200, { 'Content-Type': 'application/json' }, '{}']);
-  //   axios.get('yolo');
+  it('should log when on response.success', function(done) {
+    server.respondWith([200, { 'Content-Type': 'application/json' }, '{}']);
+    axios.get('/yolo');
 
-  //   setTimeout(function() {
-  //     server.respond();
-  //     // expect(console.log.args[0]).to.contain('Success');
-  //     done();
-  //   }, 0);
-  // });
+    setTimeout(function() {
+      server.respond();
+      expect(console.log.args[0][0]).to.contain('Success');
+      done();
+    }, 0);
+  });
 
   it('should log when on response.error', function(done) {
-    // server.respondWith([400, { 'Content-Type': 'application/json' }, '{}']);
+    server.respondWith([400, { 'Content-Type': 'application/json' }, '{}']);
+    axios.get('/yolo');
 
-    axios.get('/yolo')
-      .catch(function() {
-        expect(console.log.args[0][0]).to.contain('Error');
-      })
-      .then(done);
-
-    // server.respond();
-    // setTimeout(function() {
-      // server.respond();
-      // var x = console.log.args[0];
-      // console.log.restore();
-      // console.log(typeof x);
-      // expect(console.log.args[0]).to.contain('Error');
-    // }, 0);
+    setTimeout(function() {
+      server.respond();
+      expect(console.log.args[0][0]).to.contain('Error');
+      done();
+    }, 0);
   });
 });
