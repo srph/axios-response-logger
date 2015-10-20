@@ -1,43 +1,40 @@
 var sinon = require('sinon');
+var nock = require('nock');
 var expect = require('chai').expect;
 var axios = require('axios');
 require('../');
 
 describe('logger', function() {
-  var sandbox;
-  var server;
-
   beforeEach(function() {
-    sandbox = sinon.sandbox.create();
-    server = sandbox.useFakeServer();
-
-    sandbox.spy(console, 'log');
+    sinon.spy(console, 'log');
   });
 
   afterEach(function() {
-    server.restore();
-    sandbox.restore()
+    nock.cleanAll();
+    console.log.restore();
   });
 
-  it('should log when on response.success', function(done) {
-    server.respondWith([200, { 'Content-Type': 'application/json' }, '{}']);
-    axios.get('/yolo');
+  it('should log when on response.success', function() {
+    nock('http://swag.com')
+      .get('/')
+      .reply(200, '{}');
 
-    setTimeout(function() {
-      server.respond();
-      expect(console.log.args[0][0]).to.contain('Success');
-      done();
-    }, 0);
+    return axios
+      .get('http://swag.com')
+      .then(function() {
+        expect(console.log.args[0][0]).to.contain('Success');
+      });
   });
 
-  it('should log when on response.error', function(done) {
-    server.respondWith([400, { 'Content-Type': 'application/json' }, '{}']);
-    axios.get('/yolo');
+  it('should log when on response.error', function() {
+    nock('http://swag.com')
+      .get('/')
+      .reply(400, '{}');
 
-    setTimeout(function() {
-      server.respond();
-      expect(console.log.args[0][0]).to.contain('Error');
-      done();
-    }, 0);
+    return axios
+      .get('http://swag.com')
+      .catch(function() {
+        expect(console.log.args[0][0]).to.contain('Error');
+      });
   });
 });
